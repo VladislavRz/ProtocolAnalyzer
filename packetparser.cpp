@@ -80,6 +80,6 @@ void PacketParser::print_result(std::string& hostname, long& datetime, std::stri
               << type << delimeter
               << domain_name << delimeter
               << res_type << delimeter
-              << domain_name.length() << delimeter
+              << data_len << delimeter
               << data << std::endl;
 }

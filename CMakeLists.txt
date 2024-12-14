@@ -11,6 +11,7 @@ add_executable(ProtocolAnalyzer main.cpp
     dhcpv4parser.h dhcpv4parser.cpp
     sslparser.h sslparser.cpp
     httpparser.h httpparser.cpp
+    sipparser.h sipparser.cpp
 
 )
 

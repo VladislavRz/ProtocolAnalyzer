@@ -6,6 +6,7 @@
 #include "dhcpv4parser.h"
 #include "sslparser.h"
 #include "httpparser.h"
+#include "sipparser.h"
 
 
 int main(int argc, char* argv[])
@@ -13,7 +14,7 @@ int main(int argc, char* argv[])
 
     pcpp::RawPacket rawPacket;
     pcpp::Packet packet;
-    pcpp::PcapFileReaderDevice reader("/Users/larz/Documents/МГТУ/НИР/http.pcapng");
+    pcpp::PcapFileReaderDevice reader("/Users/larz/Documents/МГТУ/НИР/aaa.pcap");
     // pcpp::PcapFileReaderDevice reader("/Users/larz/Documents/МГТУ/НИР/Wireshark-tutorial-identifying-hosts-and-users-1-of-5.pcap");
 
     if (!reader.open())
@@ -45,6 +46,11 @@ int main(int argc, char* argv[])
             HTTPParser parser(packet);
             parser.parse();
 
+        }
+
+        if (packet.isPacketOfType(pcpp::SIP)) {
+            SIPParser parser(packet);
+            parser.parse();
         }
 
         // if (parser) {
