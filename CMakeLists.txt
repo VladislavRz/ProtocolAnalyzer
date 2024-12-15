@@ -15,6 +15,7 @@ add_executable(ProtocolAnalyzer main.cpp
     ldapparser.h ldapparser.cpp
     smtpparser.h smtpparser.cpp
     dnsparser.h dnsparser.cpp
+    test_pcaps/dhcp_http_ssl.pcap test_pcaps/dns.pcap test_pcaps/sip.pcap test_pcaps/smtp.pcap
 
 )
 
