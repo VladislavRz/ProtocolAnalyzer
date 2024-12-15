@@ -7,6 +7,7 @@
 #include "sslparser.h"
 #include "httpparser.h"
 #include "sipparser.h"
+#include "ldapparser.h"
 
 
 int main(int argc, char* argv[])
@@ -14,7 +15,7 @@ int main(int argc, char* argv[])
 
     pcpp::RawPacket rawPacket;
     pcpp::Packet packet;
-    pcpp::PcapFileReaderDevice reader("/Users/larz/Documents/МГТУ/НИР/aaa.pcap");
+    pcpp::PcapFileReaderDevice reader("/Users/larz/Documents/МГТУ/НИР/ldap-krb5-sign-seal-01.cap");
     // pcpp::PcapFileReaderDevice reader("/Users/larz/Documents/МГТУ/НИР/Wireshark-tutorial-identifying-hosts-and-users-1-of-5.pcap");
 
     if (!reader.open())
@@ -50,6 +51,11 @@ int main(int argc, char* argv[])
 
         if (packet.isPacketOfType(pcpp::SIP)) {
             SIPParser parser(packet);
+            parser.parse();
+        }
+
+        if (packet.isPacketOfType(pcpp::LDAP)) {
+            LDAPParser parser (packet);
             parser.parse();
         }
 
