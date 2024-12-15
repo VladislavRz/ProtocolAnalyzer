@@ -18,7 +18,7 @@ std::string SSLParser::parse_domain_name() {
 
     if (sni_ext != nullptr) {
 
-        server_name = sni_ext->getHostName().c_str();
+        server_name = sni_ext->getHostName();
 
     }
 

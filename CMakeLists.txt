@@ -13,6 +13,8 @@ add_executable(ProtocolAnalyzer main.cpp
     httpparser.h httpparser.cpp
     sipparser.h sipparser.cpp
     ldapparser.h ldapparser.cpp
+    smtpparser.h smtpparser.cpp
+    dnsparser.h dnsparser.cpp
 
 )
 

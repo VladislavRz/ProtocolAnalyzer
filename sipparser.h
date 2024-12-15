@@ -16,7 +16,7 @@ public:
     std::string parse_type() override;
     std::string parse_res_type() override;
     std::string parse_data() override;
-    std::string split_hostname(std::string& hostname, std::string&& begin, std::string&& close);
+    std::string split_hostname(std::string& hostname, std::string begin, std::string close);
 };
 
 #endif // SIPPARSER_H

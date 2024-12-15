@@ -24,4 +24,15 @@ std::string DHCPv4Parser::parse_type() { return "dhcp4"; }
 
 std::string DHCPv4Parser::parse_res_type() { return "dhcp_request"; }
 
-std::string DHCPv4Parser::parse_data() { return ""; }
+std::string DHCPv4Parser::parse_data() {
+    std::string data;
+    pcpp::DhcpLayer* dhcp_packet = nullptr;
+
+    dhcp_packet = this->_packet.getLayerOfType<pcpp::DhcpLayer>();
+    if (dhcp_packet == nullptr) { return data; }
+
+    data = "client_mac{" + dhcp_packet->getClientHardwareAddress().toString() + "}";
+
+
+    return data;
+}

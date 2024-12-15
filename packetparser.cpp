@@ -18,7 +18,6 @@ void PacketParser::parse() {
     std::string res_type = parse_res_type();
     std::string data = parse_data();
     int data_len = data.empty() ? domain_name.length() : data.length();
-
     print_result(hostname, datetime, src_ip, dst_ip, type, domain_name, res_type, data_len, data, delimeter);
 }
 
