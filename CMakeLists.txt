@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(ProtocolAnalyzer main.cpp
     packetparser.h packetparser.cpp
-    settings.h
+
     dhcpv4parser.h dhcpv4parser.cpp
     sslparser.h sslparser.cpp
     httpparser.h httpparser.cpp

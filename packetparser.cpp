@@ -3,10 +3,11 @@
 
 PacketParser::PacketParser(pcpp::Packet& packet):_packet(packet) {}
 
-void PacketParser::parse() {
+void PacketParser::parse(const std::string& hostname, const std::string& delimeter) {
 
-    std::string delimeter = DELIMETER;
-    std::string hostname = HNAME;
+    if (hostname.empty()) { throw "Emty hostname parameter."; }
+    if (delimeter.empty()) { throw "Empty delimeter parameter."; }
+
     std::string domain_name = parse_domain_name();
 
     if (domain_name.empty()) { return; }
@@ -18,6 +19,7 @@ void PacketParser::parse() {
     std::string res_type = parse_res_type();
     std::string data = parse_data();
     int data_len = data.empty() ? domain_name.length() : data.length();
+
     print_result(hostname, datetime, src_ip, dst_ip, type, domain_name, res_type, data_len, data, delimeter);
 }
 
@@ -40,7 +42,8 @@ std::string PacketParser::parse_src_ip() {
 
     } else {
 
-        std::cerr << "Не удалось получить IP адреса отправителя. Вероятно, пакет не является IP пакетом." << std::endl;
+        std::cerr << "Packet timestamp: " << this->_packet.getRawPacket()->getPacketTimeStamp().tv_sec
+                  << ". Could not be get src IP address." << std::endl;
 
     }
 
@@ -61,16 +64,17 @@ std::string PacketParser::parse_dst_ip() {
 
     } else {
 
-        std::cerr << "Не удалось получить IP адрес получателя. Вероятно, пакет не является IP пакетом." << std::endl;
+        std::cerr << "Packet timestamp: " << this->_packet.getRawPacket()->getPacketTimeStamp().tv_sec
+                  << ". Could not be get dst IP address." << std::endl;
 
     }
 
     return dst_ip;
 }
 
-void PacketParser::print_result(std::string& hostname, long& datetime, std::string& src_ip,
+void PacketParser::print_result(const std::string& hostname, long& datetime, std::string& src_ip,
                                 std::string& dst_ip, std::string& type, std::string& domain_name,
-                                std::string& res_type, int& data_len, std::string& data, std::string& delimeter) const {
+                                std::string& res_type, int& data_len, std::string& data, const std::string& delimeter) const {
 
     std::cout << hostname << delimeter
               << datetime << delimeter

@@ -1,8 +1,7 @@
 #include <Packet.h>
 #include <IPv4Layer.h>
 #include <IPv6Layer.h>
-
-#include "settings.h"
+#include <iostream>
 
 #ifndef PACKETPARSER_H
 #define PACKETPARSER_H
@@ -28,10 +27,10 @@ public:
     std::string parse_src_ip();
     std::string parse_dst_ip();
 
-    void parse();
-    void print_result(std::string& hostname, long& datetime, std::string& src_ip,
+    void parse(const std::string& hostname, const std::string& delimeter);
+    void print_result(const std::string& hostname, long& datetime, std::string& src_ip,
                       std::string& dst_ip, std::string& type, std::string& domain_name,
-                      std::string& res_type, int& data_len, std::string& data, std::string& delimeter) const;
+                      std::string& res_type, int& data_len, std::string& data, const std::string& delimeter) const;
 
 };
 
