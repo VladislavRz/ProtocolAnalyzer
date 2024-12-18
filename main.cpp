@@ -36,11 +36,11 @@ void run(pcpp::PcapFileReaderDevice& reader, std::string& hostname, std::string&
         packet = pcpp::Packet(&rawPacket);
 
 
-        if (packet.isPacketOfType(pcpp::DHCP)) {
-            DHCPv4Parser parser(packet);
-            parser.parse(hostname, delimeter);
+        // if (packet.isPacketOfType(pcpp::DHCP)) {
+        //     DHCPv4Parser parser(packet);
+        //     parser.parse(hostname, delimeter);
 
-        }
+        // }
 
         if (packet.isPacketOfType(pcpp::SSL)) {
             SSLParser parser(packet);
@@ -48,31 +48,31 @@ void run(pcpp::PcapFileReaderDevice& reader, std::string& hostname, std::string&
 
         }
 
-        if (packet.isPacketOfType(pcpp::HTTPRequest)) {
-            HTTPParser parser(packet);
-            parser.parse(hostname, delimeter);
+        // if (packet.isPacketOfType(pcpp::HTTPRequest)) {
+        //     HTTPParser parser(packet);
+        //     parser.parse(hostname, delimeter);
 
-        }
+        // }
 
-        if (packet.isPacketOfType(pcpp::SIP)) {
-            SIPParser parser(packet);
-            parser.parse(hostname, delimeter);
-        }
+        // if (packet.isPacketOfType(pcpp::SIP)) {
+        //     SIPParser parser(packet);
+        //     parser.parse(hostname, delimeter);
+        // }
 
-        if (packet.isPacketOfType(pcpp::LDAP)) {
-            LDAPParser parser (packet);
-            parser.parse(hostname, delimeter);
-        }
+        // if (packet.isPacketOfType(pcpp::LDAP)) {
+        //     LDAPParser parser (packet);
+        //     parser.parse(hostname, delimeter);
+        // }
 
-        if (packet.isPacketOfType(pcpp::SMTP)) {
-            SMTPParser parser (packet);
-            parser.parse(hostname, delimeter);
-        }
+        // if (packet.isPacketOfType(pcpp::SMTP)) {
+        //     SMTPParser parser (packet);
+        //     parser.parse(hostname, delimeter);
+        // }
 
-        if (packet.isPacketOfType(pcpp::DNS)) {
-            DNSParser parser (packet);
-            parser.parse(hostname, delimeter);
-        }
+        // if (packet.isPacketOfType(pcpp::DNS)) {
+        //     DNSParser parser (packet);
+        //     parser.parse(hostname, delimeter);
+        // }
 
     } while (reader.getNextPacket(rawPacket));
 }

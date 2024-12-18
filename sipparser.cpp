@@ -2,18 +2,19 @@
 
 SIPParser::SIPParser(pcpp::Packet& packet):PacketParser(packet) {}
 
-std::string SIPParser::parse_domain_name() {
+std::vector<std::string> SIPParser::parse_domain_name() {
 
-    std::string server_name;
+    std::vector<std::string> server_names;
     std::string host;
     pcpp::SipLayer* sip_packet = nullptr;
     sip_packet = this->_packet.getLayerOfType<pcpp::SipLayer>();
-    if (sip_packet == nullptr) { return server_name; }
+    if (sip_packet == nullptr) { return server_names; }
 
     host = sip_packet->getFieldByName("To")->getFieldValue();
-    server_name = split_hostname(host, "@", ">");
+    host = split_hostname(host, "@", ">");
+    if (!host.empty()) { server_names.push_back(host); }
 
-    return server_name;
+    return server_names;
 }
 
 std::string SIPParser::parse_type() { return "sip"; }

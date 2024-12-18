@@ -2,14 +2,14 @@
 
 SMTPParser::SMTPParser(pcpp::Packet& packet):PacketParser(packet) {}
 
-std::string SMTPParser::parse_domain_name() {
-    std::string server_name;
+std::vector<std::string> SMTPParser::parse_domain_name() {
+    std::vector<std::string> server_names;
     std::string host;
     pcpp::SmtpResponseLayer::SmtpStatusCode status;
     pcpp::SmtpResponseLayer* smtp_packet = nullptr;
 
     smtp_packet = this->_packet.getLayerOfType<pcpp::SmtpResponseLayer>();
-    if (!smtp_packet) { return server_name; }
+    if (!smtp_packet) { return server_names; }
 
     status = smtp_packet->getStatusCode();
 
@@ -17,10 +17,11 @@ std::string SMTPParser::parse_domain_name() {
         (status == pcpp::SmtpResponseLayer::SmtpStatusCode::SERVICE_CLOSE)) {
 
         host = smtp_packet->getStatusOption();
-        server_name = this->split_domain(host);
+        host = this->split_domain(host);
+        if (!host.empty()) { server_names.push_back(host); }
     }
 
-    return server_name;
+    return server_names;
 }
 
 std::string SMTPParser::parse_type() { return "smtp_response"; }

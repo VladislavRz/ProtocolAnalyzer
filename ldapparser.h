@@ -11,7 +11,7 @@ public:
     LDAPParser(pcpp::Packet& packet);
     ~LDAPParser() = default;
 
-    std::string parse_domain_name() override;
+    std::vector<std::string> parse_domain_name() override;
     std::string parse_type() override;
     std::string parse_res_type() override;
     std::string parse_data() override;

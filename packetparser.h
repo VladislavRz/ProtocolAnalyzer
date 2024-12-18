@@ -2,6 +2,7 @@
 #include <IPv4Layer.h>
 #include <IPv6Layer.h>
 #include <iostream>
+#include <vector>
 
 #ifndef PACKETPARSER_H
 #define PACKETPARSER_H
@@ -18,7 +19,7 @@ public:
     PacketParser(pcpp::Packet& packet);
     virtual ~PacketParser() = default;
 
-    virtual std::string parse_domain_name() = 0;
+    virtual std::vector<std::string> parse_domain_name() = 0;
     virtual std::string parse_type() = 0;
     virtual std::string parse_res_type() = 0;
     virtual std::string parse_data() = 0;

@@ -2,17 +2,19 @@
 
 HTTPParser::HTTPParser(pcpp::Packet& packet):PacketParser(packet) {}
 
-std::string HTTPParser::parse_domain_name() {
+std::vector<std::string> HTTPParser::parse_domain_name() {
 
-    std::string server_name;
+    std::vector<std::string> server_names;
+    std::string hostname;
     pcpp::HttpRequestLayer* http_packet = nullptr;
 
     http_packet = this->_packet.getLayerOfType<pcpp::HttpRequestLayer>();
-    if (http_packet == nullptr) { return server_name; }
+    if (http_packet == nullptr) { return server_names; }
 
-    server_name = http_packet->getFieldByName("Host")->getFieldValue();
+    hostname = http_packet->getFieldByName("Host")->getFieldValue();
+    if (!hostname.empty()) { server_names.push_back(hostname); }
 
-    return server_name;
+    return server_names;
 }
 
 std::string HTTPParser::parse_type() { return "http"; }

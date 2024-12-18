@@ -8,7 +8,7 @@ void PacketParser::parse(const std::string& hostname, const std::string& delimet
     if (hostname.empty()) { throw "Emty hostname parameter."; }
     if (delimeter.empty()) { throw "Empty delimeter parameter."; }
 
-    std::string domain_name = parse_domain_name();
+    std::vector<std::string> domain_name = parse_domain_name();
 
     if (domain_name.empty()) { return; }
 
@@ -18,9 +18,12 @@ void PacketParser::parse(const std::string& hostname, const std::string& delimet
     std::string type = parse_type();
     std::string res_type = parse_res_type();
     std::string data = parse_data();
-    int data_len = data.empty() ? domain_name.length() : data.length();
+    int data_len = 0;
 
-    print_result(hostname, datetime, src_ip, dst_ip, type, domain_name, res_type, data_len, data, delimeter);
+    for(size_t i=0; i < domain_name.size(); i++) {
+        data_len =  data.empty() ? domain_name[i].length() : data.length();
+        print_result(hostname, datetime, src_ip, dst_ip, type, domain_name[i], res_type, data_len, data, delimeter);
+    }
 }
 
 long PacketParser::parse_datetime() {
